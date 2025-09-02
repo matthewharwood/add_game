@@ -13,11 +13,11 @@ class EnemyContainer extends HTMLElement {
       <style>
         :host {
           display: block;
-          background-color: #b0e86e;
+          background-color: #ccc;
           grid-row: 1 / 3;
           grid-column: 3 / 7;
         }
-        
+
         .enemy-content {
           text-align: center;
           padding: 1rem;
@@ -27,7 +27,7 @@ class EnemyContainer extends HTMLElement {
           align-items: center;
           justify-content: center;
         }
-        
+
         /* Tablet Styles */
         @media (max-width: 1024px) and (min-width: 769px) {
           :host {
@@ -35,7 +35,7 @@ class EnemyContainer extends HTMLElement {
             grid-column: 2 / 5;
           }
         }
-        
+
         /* Mobile Styles */
         @media (max-width: 768px) {
           :host {

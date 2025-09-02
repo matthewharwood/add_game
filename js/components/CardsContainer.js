@@ -13,7 +13,7 @@ class CardsContainer extends HTMLElement {
       <style>
         :host {
           display: block;
-          background-color: #9a16a1;
+          background-color: #ccc;
           grid-row: 3 / 5;
           grid-column: 1 / 9;
         }

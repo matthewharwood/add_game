@@ -13,12 +13,12 @@ class BottomNavContainer extends HTMLElement {
       <style>
         :host {
           display: block;
-          background-color: #56a384;
+          background-color: #ccc;
           color: white;
           grid-row: 5 / 6;
           grid-column: 3 / 7;
         }
-        
+
         .nav-content {
           display: flex;
           justify-content: space-around;
@@ -27,18 +27,18 @@ class BottomNavContainer extends HTMLElement {
           height: 100%;
           box-sizing: border-box;
         }
-        
+
         .nav-item {
           padding: 0.5rem 1rem;
           cursor: pointer;
           transition: background-color 0.3s;
           border-radius: 4px;
         }
-        
+
         .nav-item:hover {
           background-color: rgba(255, 255, 255, 0.1);
         }
-        
+
         /* Tablet Styles */
         @media (max-width: 1024px) and (min-width: 769px) {
           :host {
@@ -46,7 +46,7 @@ class BottomNavContainer extends HTMLElement {
             grid-column: 2 / 5;
           }
         }
-        
+
         /* Mobile Styles */
         @media (max-width: 768px) {
           :host {

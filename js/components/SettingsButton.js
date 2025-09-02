@@ -1,4 +1,4 @@
-class Card extends HTMLElement {
+class SettingsButton extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -12,11 +12,11 @@ class Card extends HTMLElement {
 
 
   render() {
-  
+
 
   }
 }
 
-customElements.define('game-card', Card);
+customElements.define('settings-button', SettingsButton);
 
-export default Card;
+export default SettingsButton;
