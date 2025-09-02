@@ -49,12 +49,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const cardsContainer = document.querySelector('cards-container');
   
   if (cardsContainer) {
-    // Create 8 card slots
-    for (let i = 1; i <= 8; i++) {
+    // Create card slots based on the number of cards in the Game state
+    const numberOfSlots = Game.cards ? Game.cards.length : 0;
+    
+    for (let i = 1; i <= numberOfSlots; i++) {
       const cardSlot = document.createElement('game-card-slot');
       cardSlot.setAttribute('slot-index', i);
       cardsContainer.appendChild(cardSlot);
     }
+    
+    console.log(`Created ${numberOfSlots} card slots based on cards array`);
     
     // Listen for card-dropped events
     cardsContainer.addEventListener('card-dropped', (event) => {
