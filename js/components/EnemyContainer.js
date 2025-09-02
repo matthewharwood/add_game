@@ -82,9 +82,57 @@ class EnemyContainer extends HTMLElement {
         }
         .enemy-health {
             height: 10%;
-            background-color: var(--color-bg-secondary);
             width: 100%;
             display: flex;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        
+        .health-bar-container {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-bg-tertiary);
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .health-bar-fill {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-success);
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .health-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.3) 0%,
+                transparent 50%,
+                rgba(0, 0, 0, 0.2) 100%
+            );
+        }
+        
+        .health-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-inverse);
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
         /* Tablet Styles */
@@ -115,7 +163,12 @@ class EnemyContainer extends HTMLElement {
             </div>
 
             <div class="enemy-health">
-
+              <div class="health-bar-container">
+                <div class="health-bar-fill"></div>
+                <div class="health-text">
+                  ${this.currentEnemy ? `${this.currentEnemy.health} / ${this.currentEnemy.health}` : ''}
+                </div>
+              </div>
             </div>
 
       </div>
