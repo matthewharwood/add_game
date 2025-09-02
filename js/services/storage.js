@@ -83,6 +83,26 @@ export const loadGameState = async () => {
   }
 };
 
+// Update enemy in game state
+export const updateEnemy = async (enemy) => {
+  if (!enemy) {
+    throw new Error('No enemy provided to update');
+  }
+  
+  // Store the enemy with current health initialized to max health
+  Game.enemy = {
+    ...enemy,
+    currentHealth: enemy.health,
+    maxHealth: enemy.health
+  };
+  
+  // Save the updated state to IndexedDB
+  await saveGameState();
+  
+  console.log('Enemy updated in game state:', Game.enemy);
+  return Game.enemy;
+};
+
 // Export database configuration for use in other modules
 export const dbConfig = {
   name: DB_NAME,

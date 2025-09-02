@@ -1,4 +1,4 @@
-import { Game } from '../services/storage.js';
+import { Game, updateEnemy } from '../services/storage.js';
 import { findClosestEnemyByLevel } from '../utils/enemyMatcher.js';
 
 class EnemyContainer extends HTMLElement {
@@ -7,14 +7,55 @@ class EnemyContainer extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
-  connectedCallback() {
-    // Find the closest enemy based on the current game level
-    const currentLevel = Game.level || 1;
-    const matchedEnemy = findClosestEnemyByLevel(currentLevel);
-    console.log('Matched enemy for level', currentLevel, ':', matchedEnemy);
+  async connectedCallback() {
+    try {
+      // Find the closest enemy based on the current game level
+      const currentLevel = Game.level || 1;
+      const matchedEnemy = findClosestEnemyByLevel(currentLevel);
+      console.log('Matched enemy for level', currentLevel, ':', matchedEnemy);
 
-    this.currentEnemy = matchedEnemy;
-    this.render();
+      // Update the enemy in storage
+      await updateEnemy(matchedEnemy);
+      
+      // Use the enemy from Game state (which includes currentHealth)
+      this.currentEnemy = Game.enemy;
+      this.render();
+    } catch (error) {
+      console.error('Failed to initialize enemy:', error);
+      // Optionally render an error state or fallback UI
+      this.renderError(error.message);
+    }
+  }
+  
+  renderError(message) {
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          grid-row: 1 / 3;
+          grid-column: 3 / 7;
+          padding: 24px 0 0 0;
+          box-sizing: border-box;
+        }
+        .error-container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: var(--color-bg-secondary);
+          border: 2px solid var(--color-error);
+          border-radius: 8px;
+          color: var(--color-error);
+          font-size: 1.2rem;
+          padding: 2rem;
+          text-align: center;
+        }
+      </style>
+      <div class="error-container">
+        <div>⚠️ ${message}</div>
+      </div>
+    `;
   }
 
   render() {
@@ -71,7 +112,7 @@ class EnemyContainer extends HTMLElement {
             padding: 1rem;
             box-sizing: border-box;
         }
-        
+
         .enemy-name {
             font-family: var(--font-display);
             font-weight: 700;
@@ -87,7 +128,7 @@ class EnemyContainer extends HTMLElement {
             align-items: center;
             box-sizing: border-box;
         }
-        
+
         .health-bar-container {
             width: 100%;
             height: 100%;
@@ -96,7 +137,7 @@ class EnemyContainer extends HTMLElement {
             position: relative;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .health-bar-fill {
             width: 100%;
             height: 100%;
@@ -105,7 +146,7 @@ class EnemyContainer extends HTMLElement {
             position: relative;
             overflow: hidden;
         }
-        
+
         .health-bar-fill::after {
             content: '';
             position: absolute;
@@ -120,7 +161,7 @@ class EnemyContainer extends HTMLElement {
                 rgba(0, 0, 0, 0.2) 100%
             );
         }
-        
+
         .health-text {
             position: absolute;
             width: 100%;
@@ -164,9 +205,9 @@ class EnemyContainer extends HTMLElement {
 
             <div class="enemy-health">
               <div class="health-bar-container">
-                <div class="health-bar-fill"></div>
+                <div class="health-bar-fill" style="width: ${this.currentEnemy ? `${(this.currentEnemy.currentHealth / this.currentEnemy.maxHealth) * 100}%` : '100%'}"></div>
                 <div class="health-text">
-                  ${this.currentEnemy ? `${this.currentEnemy.health} / ${this.currentEnemy.health}` : ''}
+                  ${this.currentEnemy ? `${this.currentEnemy.currentHealth} / ${this.currentEnemy.maxHealth}` : ''}
                 </div>
               </div>
             </div>

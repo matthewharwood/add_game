@@ -3,7 +3,8 @@ import { enemies } from '../data/enemy_data.js';
 /**
  * Finds the closest enemy by level, counting backwards if exact match not found
  * @param {number} targetLevel - The level to match
- * @returns {Object|null} The matched enemy object or null if none found
+ * @returns {Object} The matched enemy object
+ * @throws {Error} If no enemy can be found
  */
 export function findClosestEnemyByLevel(targetLevel) {
   // First, try to find an exact match
@@ -23,6 +24,12 @@ export function findClosestEnemyByLevel(targetLevel) {
     currentLevel--;
   }
   
-  // If no enemy found counting backwards, return the first enemy (level 1)
-  return enemies.find(e => e.level === 1) || null;
+  // If no enemy found counting backwards, try to return the first enemy (level 1)
+  const firstEnemy = enemies.find(e => e.level === 1);
+  
+  if (!firstEnemy) {
+    throw new Error(`No enemy found for level ${targetLevel} or any lower level. Enemy data may be missing.`);
+  }
+  
+  return firstEnemy;
 }
