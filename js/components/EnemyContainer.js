@@ -1,3 +1,6 @@
+import { Game } from '../services/storage.js';
+import { findClosestEnemyByLevel } from '../utils/enemyMatcher.js';
+
 class EnemyContainer extends HTMLElement {
   constructor() {
     super();
@@ -5,6 +8,12 @@ class EnemyContainer extends HTMLElement {
   }
 
   connectedCallback() {
+    // Find the closest enemy based on the current game level
+    const currentLevel = Game.level || 1;
+    const matchedEnemy = findClosestEnemyByLevel(currentLevel);
+    console.log('Matched enemy for level', currentLevel, ':', matchedEnemy);
+
+    this.currentEnemy = matchedEnemy;
     this.render();
   }
 
@@ -40,6 +49,19 @@ class EnemyContainer extends HTMLElement {
         }
         .enemy-portrait {
             width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .enemy-portrait img {
+            width: 100%;
+            height: 100%;
+
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
         }
         .enemy-info {
             width: 50%;
@@ -71,7 +93,7 @@ class EnemyContainer extends HTMLElement {
 
             <div class="flex-top-grid">
               <div class="enemy-portrait">
-
+                ${this.currentEnemy ? `<img src="${this.currentEnemy.imgsrc}" alt="${this.currentEnemy.name}" />` : ''}
               </div>
               <div class="enemy-info">
 
@@ -79,7 +101,7 @@ class EnemyContainer extends HTMLElement {
             </div>
 
             <div class="enemy-health">
-                
+
             </div>
 
       </div>
