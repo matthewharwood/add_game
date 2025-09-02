@@ -13,7 +13,7 @@ class EnemyContainer extends HTMLElement {
       <style>
         :host {
           display: block;
-          background-color: #ccc;
+
           grid-row: 1 / 3;
           grid-column: 3 / 7;
         }

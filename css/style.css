@@ -6,6 +6,8 @@
 /* Apply theme background to body */
 body {
   background-color: var(--color-bg-primary);
+  margin: 0;
+  padding: 0;
 }
 
 /* Grid Container */
@@ -14,7 +16,7 @@ body {
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 12px 12px;
-  min-height: 100vh;
+  height: 100dvh;
 }
 
 /* Tablet Styles */

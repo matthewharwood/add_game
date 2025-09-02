@@ -13,7 +13,7 @@ class BottomNavContainer extends HTMLElement {
       <style>
         :host {
           display: block;
-          background-color: #ccc;
+
           color: white;
           grid-row: 5 / 6;
           grid-column: 3 / 7;
