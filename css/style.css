@@ -10,6 +10,13 @@ body {
   padding: 0;
 }
 
+/* Font Classes */
+.unifrakturcook-bold {
+  font-family: "UnifrakturCook", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* Grid Container */
 .grid-container {
   display: grid;

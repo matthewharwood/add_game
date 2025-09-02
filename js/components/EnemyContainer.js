@@ -65,6 +65,20 @@ class EnemyContainer extends HTMLElement {
         }
         .enemy-info {
             width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+        
+        .enemy-name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-style: normal;
+            font-size: 2.5rem;
+            color: var(--color-text-primary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         .enemy-health {
             height: 10%;
@@ -96,7 +110,7 @@ class EnemyContainer extends HTMLElement {
                 ${this.currentEnemy ? `<img src="${this.currentEnemy.imgsrc}" alt="${this.currentEnemy.name}" />` : ''}
               </div>
               <div class="enemy-info">
-
+                ${this.currentEnemy ? `<span class="enemy-name">${this.currentEnemy.name}</span>` : ''}
               </div>
             </div>
 

@@ -69,4 +69,7 @@
   --gradient-error: linear-gradient(135deg, #ff6b6b 0%, #e55353 100%);
   --gradient-warning: linear-gradient(135deg, #ffd93d 0%, #f9c74f 100%);
   --gradient-success: linear-gradient(135deg, #7fdbca 0%, #a8e6cf 100%);
+  
+  /* Fonts */
+  --font-display: 'UnifrakturCook', cursive;
 }
