@@ -1,0 +1,72 @@
+:root {
+  /* Duotone Dark Theme Color Palette */
+  
+  /* Background Colors */
+  --color-bg-primary: #1f1d27;        /* Main dark purple background */
+  --color-bg-secondary: #332f43;      /* Slightly lighter purple for sections */
+  --color-bg-tertiary: #3d3854;       /* Even lighter for elevated surfaces */
+  
+  /* Text Colors */
+  --color-text-primary: #b4a7d6;      /* Main purple text (index 7 in palette) */
+  --color-text-secondary: #9d93c1;    /* Slightly muted purple text */
+  --color-text-muted: #6c6783;        /* Muted/disabled text */
+  --color-text-inverse: #ffffff;      /* White text for high contrast */
+  
+  /* Accent Colors */
+  --color-accent-primary: #7fdbca;    /* Primary green accent (index 2) */
+  --color-accent-secondary: #c2e98b;  /* Bright green for highlights */
+  --color-accent-tertiary: #82d2ce;   /* Teal-green variant */
+  
+  /* Semantic Colors */
+  --color-error: #ff6b6b;             /* Red for errors (index 0/8) */
+  --color-error-light: #ff8787;       /* Lighter red variant */
+  --color-error-dark: #e55353;        /* Darker red variant */
+  
+  --color-warning: #ffd93d;           /* Yellow for warnings (index 3/4) */
+  --color-warning-light: #ffe66d;     /* Lighter yellow */
+  --color-warning-dark: #f9c74f;      /* Darker yellow/orange */
+  
+  --color-info: #ffcc66;              /* Orange-yellow for info (index 5/6) */
+  --color-info-light: #ffd699;        /* Lighter orange */
+  --color-info-dark: #ff9f40;         /* Darker orange */
+  
+  --color-success: #7fdbca;           /* Green for success (same as accent) */
+  --color-success-light: #a8e6cf;     /* Light green */
+  --color-success-dark: #52b788;      /* Dark green */
+  
+  /* Interactive States */
+  --color-hover: rgba(127, 219, 202, 0.1);   /* Green tint for hover */
+  --color-active: rgba(127, 219, 202, 0.2);  /* Green tint for active */
+  --color-focus: rgba(180, 167, 214, 0.3);   /* Purple tint for focus */
+  --color-disabled: rgba(108, 103, 131, 0.5); /* Muted for disabled */
+  
+  /* Borders */
+  --color-border-default: rgba(180, 167, 214, 0.2);
+  --color-border-hover: rgba(127, 219, 202, 0.4);
+  --color-border-active: rgba(127, 219, 202, 0.6);
+  --color-border-error: rgba(255, 107, 107, 0.5);
+  --color-border-warning: rgba(255, 217, 61, 0.5);
+  --color-border-success: rgba(127, 219, 202, 0.5);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(42, 39, 52, 0.5);
+  --shadow-md: 0 4px 6px rgba(42, 39, 52, 0.6);
+  --shadow-lg: 0 10px 15px rgba(42, 39, 52, 0.7);
+  --shadow-xl: 0 20px 25px rgba(42, 39, 52, 0.8);
+  
+  /* Syntax Highlighting (for code blocks if needed) */
+  --syntax-keyword: #ffcc66;          /* Orange for keywords */
+  --syntax-string: #7fdbca;           /* Green for strings */
+  --syntax-comment: #6c6783;          /* Muted purple for comments */
+  --syntax-function: #b4a7d6;         /* Purple for functions */
+  --syntax-variable: #c2e98b;         /* Bright green for variables */
+  --syntax-constant: #ff6b6b;         /* Red for constants */
+  --syntax-operator: #ffd93d;         /* Yellow for operators */
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #2a2734 0%, #3d3854 100%);
+  --gradient-accent: linear-gradient(135deg, #7fdbca 0%, #52b788 100%);
+  --gradient-error: linear-gradient(135deg, #ff6b6b 0%, #e55353 100%);
+  --gradient-warning: linear-gradient(135deg, #ffd93d 0%, #f9c74f 100%);
+  --gradient-success: linear-gradient(135deg, #7fdbca 0%, #a8e6cf 100%);
+}

@@ -3,6 +3,11 @@
 
  /*CUSTOM STYLES */
 
+/* Apply theme background to body */
+body {
+  background-color: var(--color-bg-primary);
+}
+
 /* Grid Container */
 .grid-container {
   display: grid;

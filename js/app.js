@@ -2,6 +2,7 @@ import './components/EnemyContainer.js';
 import './components/BottomNavContainer.js';
 import './components/CardsContainer.js';
 import './components/CardSlot.js';
+import './components/SettingsButton.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Web Components loaded and ready');
