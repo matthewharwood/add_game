@@ -25,6 +25,8 @@ class CardsContainer extends HTMLElement {
           padding: 1rem;
           height: 100%;
           box-sizing: border-box;
+          max-width: 1200px;
+          margin: 0 auto;
         }
 
         .card {
@@ -50,6 +52,10 @@ class CardsContainer extends HTMLElement {
             grid-row: 2 / 4;
             grid-column: 1 / 6;
           }
+          
+          .cards-content {
+            max-width: 768px;
+          }
         }
 
         /* Mobile Styles */
@@ -57,6 +63,10 @@ class CardsContainer extends HTMLElement {
           :host {
             grid-row: 3 / 6;
             grid-column: 1 / 6;
+          }
+          
+          .cards-content {
+            max-width: 480px;
           }
         }
       </style>
