@@ -9,6 +9,7 @@ export const Game = {
   numberRange: 10,  // Maximum number range
   timestamp: null,  // Last save timestamp
   enemy: null,      // Current enemy state {enemy, currentHealth}
+  mode: 'add',      // Static game mode value
   config: {         // Default loading rules configuration
     nCards: 5,      // Number of cards to generate
     defaultStart: 0,    // Starting number range
