@@ -1,5 +1,6 @@
 import { Game, updateEnemy } from '../services/storage.js';
 import { findClosestEnemyByLevel } from '../utils/enemyMatcher.js';
+import { pickRandom } from '../utils/randomPicker.js';
 
 class EnemyContainer extends HTMLElement {
   constructor() {
@@ -107,19 +108,34 @@ class EnemyContainer extends HTMLElement {
         .enemy-info {
             width: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 1rem;
             box-sizing: border-box;
+            text-align: center;
         }
 
         .enemy-name {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-style: normal;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: var(--color-text-primary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .enemy-alias {
             font-family: var(--font-display);
             font-weight: 700;
             font-style: normal;
             font-size: 2.5rem;
             color: var(--color-text-primary);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            display: block;
         }
         .enemy-health {
             height: 10%;
@@ -164,12 +180,14 @@ class EnemyContainer extends HTMLElement {
 
         .health-text {
             position: absolute;
+            top: 0;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--color-text-inverse);
+            font-family: var(--font-mono);
             font-weight: bold;
             font-size: 0.9rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -199,7 +217,12 @@ class EnemyContainer extends HTMLElement {
                 ${this.currentEnemy ? `<img src="${this.currentEnemy.imgsrc}" alt="${this.currentEnemy.name}" />` : ''}
               </div>
               <div class="enemy-info">
-                ${this.currentEnemy ? `<span class="enemy-name">${this.currentEnemy.name}</span>` : ''}
+                ${this.currentEnemy ? `
+                  <div>
+                    <span class="enemy-name">${this.currentEnemy.name}</span>
+                    <span class="enemy-alias">${this.currentEnemy.alias ? pickRandom(this.currentEnemy.alias) : this.currentEnemy.name}</span>
+                  </div>
+                ` : ''}
               </div>
             </div>
 
