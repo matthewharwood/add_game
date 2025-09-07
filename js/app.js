@@ -90,13 +90,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     console.log(`Created ${numberOfSlots} card slots based on cards array`);
     
-    // Listen for card-dropped events
-    cardsContainer.addEventListener('card-dropped', (event) => {
-      console.log('Card dropped in slot:', event.detail);
-      // Update question array when a card is dropped
+    // Listen for card events globally
+    window.addEventListener('card-placed', async (event) => {
+      console.log('Card placed in slot:', event.detail);
+      // Update question array when a card is placed
       if (event.detail && event.detail.slotIndex && event.detail.value !== undefined) {
         updateQuestion(event.detail.slotIndex, event.detail.value);
-        saveGameState(); // Save the updated state
+        await saveGameState(); // Save the updated state
+      }
+    });
+    
+    window.addEventListener('card-removed', async (event) => {
+      console.log('Card removed from slot:', event.detail);
+      // Clear the slot in question array when a card is removed
+      if (event.detail && event.detail.slotIndex) {
+        updateQuestion(event.detail.slotIndex, null);
+        await saveGameState(); // Save the updated state
       }
     });
   }

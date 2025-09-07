@@ -9,7 +9,21 @@ class CardSlot extends HTMLElement {
 
   connectedCallback() {
     this.render();
-
+  }
+  
+  canAcceptCard(card) {
+    // Check if this is an operator slot in add mode
+    const slotIndex = parseInt(this.getAttribute('slot-index'));
+    const hasOperator = this.querySelector('.operator-card');
+    
+    // Don't allow dropping on operator slots (2 and 4 in add mode)
+    if (hasOperator) {
+      return false;
+    }
+    
+    // Allow drop if slot is empty or has a non-operator card
+    const existingCard = this.querySelector('game-card:not(.operator-card)');
+    return true; // Allow swap or drop
   }
 
 
@@ -52,6 +66,15 @@ class CardSlot extends HTMLElement {
           background: rgba(74, 222, 128, 0.1);
           transform: scale(1.05);
           box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+        }
+        
+        /* Drop preview state */
+        :host(.drop-preview) .slot {
+          border-color: var(--color-accent-primary);
+          border-width: 3px;
+          background: rgba(127, 219, 202, 0.15);
+          transform: scale(1.02);
+          box-shadow: 0 0 15px rgba(127, 219, 202, 0.4);
         }
 
         .slot.disabled {

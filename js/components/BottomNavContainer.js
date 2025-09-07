@@ -15,20 +15,32 @@ class BottomNavContainer extends HTMLElement {
   createCardElements() {
     const navContent = this.shadowRoot.querySelector('.nav-content');
     
-    // Clear any existing content in the slot
+    // Clear any existing content
     navContent.innerHTML = '';
     
-    // Create 5 game-card elements from the cards in storage
-    if (Game.cards && Game.cards.length > 0) {
-      Game.cards.slice(0, 5).forEach((card, index) => {
+    // Create 5 card slots in the nav
+    for (let i = 0; i < 5; i++) {
+      const cardSlot = document.createElement('div');
+      cardSlot.classList.add('nav-card-slot');
+      cardSlot.setAttribute('data-slot-index', i);
+      
+      // Add the card to its slot if it exists
+      if (Game.cards && Game.cards[i]) {
         const gameCard = document.createElement('game-card');
-        gameCard.textContent = card.value;
-        gameCard.setAttribute('data-card-id', card.id);
-        gameCard.setAttribute('data-index', index);
+        gameCard.textContent = Game.cards[i].value;
+        gameCard.setAttribute('data-card-id', Game.cards[i].id);
+        gameCard.setAttribute('data-nav-index', i);
         gameCard.classList.add('nav-card');
-        navContent.appendChild(gameCard);
-      });
+        cardSlot.appendChild(gameCard);
+      }
+      
+      navContent.appendChild(cardSlot);
     }
+  }
+  
+  canAcceptCard(card) {
+    // Bottom nav can always accept cards back
+    return !card.classList.contains('operator-card');
   }
 
   render() {
@@ -51,12 +63,32 @@ class BottomNavContainer extends HTMLElement {
           box-sizing: border-box;
           gap: 0.5rem;
         }
-
-        .nav-content ::slotted(game-card),
-        .nav-content game-card {
+        
+        .nav-card-slot {
           flex: 1;
           max-width: 120px;
           aspect-ratio: 2/3;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px dashed rgba(255, 255, 255, 0.2);
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.03);
+          position: relative;
+        }
+        
+        .nav-card-slot:empty::after {
+          content: attr(data-slot-index);
+          position: absolute;
+          color: rgba(255, 255, 255, 0.1);
+          font-size: 2rem;
+          font-family: var(--font-mono);
+        }
+
+        .nav-content ::slotted(game-card),
+        .nav-content game-card {
+          width: 100%;
+          height: 100%;
           cursor: grab;
         }
 
@@ -91,8 +123,7 @@ class BottomNavContainer extends HTMLElement {
             grid-column: 2 / 5;
           }
           
-          .nav-content ::slotted(game-card),
-          .nav-content game-card {
+          .nav-card-slot {
             max-width: 80px;
           }
         }

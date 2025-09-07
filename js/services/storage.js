@@ -127,13 +127,14 @@ export const updateQuestion = (slotIndex, value) => {
     const arrayIndex = slotIndex - 1;
     
     // Don't overwrite operator positions when in operator modes
-    if (Game.mode === 'add') {
+    if (Game.mode === 'add' && value !== null) {
       if (arrayIndex === 1 || arrayIndex === 3) {
         // These are operator positions, don't update with card values
         return;
       }
     }
     
+    // Allow clearing (null) or setting values
     Game.question[arrayIndex] = value;
     console.log('Question updated:', Game.question);
   }
