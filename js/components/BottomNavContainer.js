@@ -1,3 +1,6 @@
+import { Game } from '../services/storage.js';
+import './Card.js';
+
 class BottomNavContainer extends HTMLElement {
   constructor() {
     super();
@@ -6,6 +9,26 @@ class BottomNavContainer extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    this.createCardElements();
+  }
+
+  createCardElements() {
+    const navContent = this.shadowRoot.querySelector('.nav-content');
+    
+    // Clear any existing content in the slot
+    navContent.innerHTML = '';
+    
+    // Create 5 game-card elements from the cards in storage
+    if (Game.cards && Game.cards.length > 0) {
+      Game.cards.slice(0, 5).forEach((card, index) => {
+        const gameCard = document.createElement('game-card');
+        gameCard.textContent = card.value;
+        gameCard.setAttribute('data-card-id', card.id);
+        gameCard.setAttribute('data-index', index);
+        gameCard.classList.add('nav-card');
+        navContent.appendChild(gameCard);
+      });
+    }
   }
 
   render() {
@@ -26,6 +49,20 @@ class BottomNavContainer extends HTMLElement {
           padding: 1rem;
           height: 100%;
           box-sizing: border-box;
+          gap: 0.5rem;
+        }
+
+        .nav-content ::slotted(game-card),
+        .nav-content game-card {
+          flex: 1;
+          max-width: 120px;
+          aspect-ratio: 2/3;
+          cursor: grab;
+        }
+
+        .nav-content ::slotted(game-card:active),
+        .nav-content game-card:active {
+          cursor: grabbing;
         }
 
         .nav-item {
@@ -52,6 +89,11 @@ class BottomNavContainer extends HTMLElement {
           :host {
             grid-row: 6 / 7;
             grid-column: 2 / 5;
+          }
+          
+          .nav-content ::slotted(game-card),
+          .nav-content game-card {
+            max-width: 80px;
           }
         }
       </style>

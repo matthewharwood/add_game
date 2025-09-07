@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('Using existing cards from IndexedDB:', Game.cards);
   }
   
+  // Update bottom nav with cards now that they're loaded
+  const bottomNav = document.querySelector('bottom-nav-container');
+  if (bottomNav && bottomNav.createCardElements) {
+    bottomNav.createCardElements();
+  }
+  
   // Get the cards container element
   const cardsContainer = document.querySelector('cards-container');
   
