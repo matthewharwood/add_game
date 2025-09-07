@@ -17,7 +17,7 @@ class EnemyContainer extends HTMLElement {
 
       // Update the enemy in storage
       await updateEnemy(matchedEnemy);
-      
+
       // Use the enemy from Game state (which includes currentHealth)
       this.currentEnemy = Game.enemy;
       this.render();
@@ -27,7 +27,7 @@ class EnemyContainer extends HTMLElement {
       this.renderError(error.message);
     }
   }
-  
+
   renderError(message) {
     this.shadowRoot.innerHTML = `
       <style>
@@ -94,7 +94,6 @@ class EnemyContainer extends HTMLElement {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
             box-sizing: border-box;
         }
 
@@ -127,7 +126,7 @@ class EnemyContainer extends HTMLElement {
             display: block;
             margin-bottom: 0.5rem;
         }
-        
+
         .enemy-alias {
             font-family: var(--font-display);
             font-weight: 700;
