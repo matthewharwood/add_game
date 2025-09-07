@@ -10,6 +10,7 @@ export const Game = {
   timestamp: null,  // Last save timestamp
   enemy: null,      // Current enemy state {enemy, currentHealth}
   mode: 'add',      // Static game mode value
+  question: [null, null, null, null, null], // Ordered array of 5 game-card values
   config: {         // Default loading rules configuration
     nCards: 5,      // Number of cards to generate
     defaultStart: 0,    // Starting number range
@@ -102,6 +103,40 @@ export const updateEnemy = async (enemy) => {
   
   console.log('Enemy updated in game state:', Game.enemy);
   return Game.enemy;
+};
+
+// Initialize question array based on mode
+export const initializeQuestion = () => {
+  // Initialize with nulls
+  Game.question = [null, null, null, null, null];
+  
+  // Set operators based on mode
+  if (Game.mode === 'add') {
+    Game.question[1] = '+';  // Index 1 (2nd position)
+    Game.question[3] = '=';  // Index 3 (4th position)
+  }
+  // Add other modes here in the future (subtract, multiply, etc.)
+  
+  return Game.question;
+};
+
+// Update question array when cards change
+export const updateQuestion = (slotIndex, value) => {
+  if (slotIndex >= 1 && slotIndex <= 5) {
+    // Convert slot-index (1-based) to array index (0-based)
+    const arrayIndex = slotIndex - 1;
+    
+    // Don't overwrite operator positions when in operator modes
+    if (Game.mode === 'add') {
+      if (arrayIndex === 1 || arrayIndex === 3) {
+        // These are operator positions, don't update with card values
+        return;
+      }
+    }
+    
+    Game.question[arrayIndex] = value;
+    console.log('Question updated:', Game.question);
+  }
 };
 
 // Export database configuration for use in other modules

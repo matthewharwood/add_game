@@ -2,8 +2,9 @@ import './components/EnemyContainer.js';
 import './components/BottomNavContainer.js';
 import './components/CardsContainer.js';
 import './components/CardSlot.js';
+import './components/Card.js';
 import './components/SettingsButton.js';
-import { Game, initDB, loadGameState, saveGameState } from './services/storage.js';
+import { Game, initDB, loadGameState, saveGameState, initializeQuestion, updateQuestion } from './services/storage.js';
 import { createRandomNumberGenerator } from './utils/helpers.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -14,6 +15,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // Try to load existing game state from IndexedDB
   const stateLoaded = await loadGameState();
+  
+  // Initialize question array based on mode
+  initializeQuestion();
   
   // Check if cards already exist in Game state (either from load or need to generate)
   if (!stateLoaded || !Game.cards || Game.cards.length === 0) {
@@ -55,6 +59,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     for (let i = 1; i <= numberOfSlots; i++) {
       const cardSlot = document.createElement('game-card-slot');
       cardSlot.setAttribute('slot-index', i);
+      
+      // If mode is 'add', create operator cards for specific slots
+      if (Game.mode === 'add') {
+        if (i === 2) {
+          // Add plus operator card
+          const plusCard = document.createElement('game-card');
+          plusCard.classList.add('operator-card');
+          plusCard.setAttribute('data-operator', 'add');
+          plusCard.textContent = '+';
+          cardSlot.appendChild(plusCard);
+        } else if (i === 4) {
+          // Add equals operator card
+          const equalsCard = document.createElement('game-card');
+          equalsCard.classList.add('operator-card');
+          equalsCard.setAttribute('data-operator', 'equals');
+          equalsCard.textContent = '=';
+          cardSlot.appendChild(equalsCard);
+        }
+      }
+      
       cardsContainer.appendChild(cardSlot);
     }
     
@@ -63,6 +87,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Listen for card-dropped events
     cardsContainer.addEventListener('card-dropped', (event) => {
       console.log('Card dropped in slot:', event.detail);
+      // Update question array when a card is dropped
+      if (event.detail && event.detail.slotIndex && event.detail.value !== undefined) {
+        updateQuestion(event.detail.slotIndex, event.detail.value);
+        saveGameState(); // Save the updated state
+      }
     });
   }
 });
