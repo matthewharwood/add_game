@@ -1,7 +1,5 @@
 # Add Game
 
-_a game for Dean to learn to add_
-
 ## Overview
 
 Add Game is a web-based educational game built to help Dean practice and improve addition skills in a fun, interactive way.
